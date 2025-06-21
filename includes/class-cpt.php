@@ -11,7 +11,7 @@ class WVT_CPT
         add_action('init', array($this, 'register_taxonomy'));
         add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
         add_action('save_post', array($this, 'save_meta_boxes'));
-        add_action('admin_init', array($this, 'add_default_categories'));
+       
     }
 
     public function register_post_type()
@@ -162,20 +162,4 @@ class WVT_CPT
         }
     }
 
-    public function add_default_categories()
-    {
-        if (!term_exists('Sermon', 'video_category')) {
-            wp_insert_term('Sermon', 'video_category', array(
-                'description' => 'Sermon videos',
-                'slug' => 'sermon',
-            ));
-        }
-
-        if (!term_exists('Bible Study', 'video_category')) {
-            wp_insert_term('Bible Study', 'video_category', array(
-                'description' => 'Bible study videos',
-                'slug' => 'bible-study',
-            ));
-        }
-    }
 }

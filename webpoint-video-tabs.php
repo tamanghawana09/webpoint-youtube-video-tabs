@@ -25,7 +25,7 @@ class WebpointVideoTabs
         // Include other necessary classes early (except CPT already included above)
         require_once WVT_PLUGIN_DIR . 'includes/class-shortcode.php';
         require_once WVT_PLUGIN_DIR . 'includes/class-ajax-handler.php';
-        require_once WVT_PLUGIN_DIR . 'template/video-grid.php';
+        
 
         // Instantiate these classes here
         new WVT_Ajax_Handler();
