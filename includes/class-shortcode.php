@@ -82,18 +82,13 @@ class WVT_Shortcode
                              'data-filter=".category-' . esc_attr($term->slug) . '" ' .
                              'data-category="' . esc_attr($term->slug) . '">' . 
                              esc_html($term->name) . 
-                             ' <span class="count">(' . $term->count . ')</span>' .
                              '</button>';
                     }
                 }
                 ?>
             </div>
 
-            <!-- Loading indicator for category switching -->
-            <div class="wvt-loading-overlay" style="display: none;">
-                <div class="loading-spinner-large">Loading videos...</div>
-            </div>
-
+          
             <!-- Video Grid -->
             <div class="wvt-video-grid">
                 <?php
@@ -198,31 +193,12 @@ class WVT_Shortcode
             
             <div class="video-info">
                 <h3 class="video-title"><?php echo esc_html(get_the_title($post_id)); ?></h3>
-                
                 <?php if (!empty($pastor_name)): ?>
                     <p class="video-pastor">
-                        <strong>Pastor:</strong> <?php echo esc_html($pastor_name); ?>
+                        <?php echo esc_html($pastor_name); ?> | <?php echo esc_html(date('F j/Y', strtotime($uploaded_date))); ?>
                     </p>
                 <?php endif; ?>
-                
-                <?php if (!empty($uploaded_date)): ?>
-                    <p class="video-uploaded-date">
-                        <strong>Uploaded:</strong> <?php echo esc_html(date('F j, Y', strtotime($uploaded_date))); ?>
-                    </p>
-                <?php endif; ?>
-                
-                <span class="video-date"><?php echo get_the_date('M j, Y', $post_id); ?></span>
-                
-                <?php if (!empty($category_names)): ?>
-                    <div class="video-categories">
-                        <span class="categories-label">Categories:</span>
-                        <?php foreach ($category_names as $index => $name): ?>
-                            <span class="category-tag"><?php echo esc_html($name); ?></span><?php 
-                            if ($index < count($category_names) - 1) echo ', '; 
-                        ?>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
+
             </div>
         </div>
         <?php

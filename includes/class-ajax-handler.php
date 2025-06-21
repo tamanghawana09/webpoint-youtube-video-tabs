@@ -123,13 +123,11 @@ class WVT_Ajax_Handler
             </div>
             <div class="video-info">
                 <h3 class="video-title"><?php echo esc_html(get_the_title($post_id)); ?></h3>
-                <?php if ($pastor_name): ?>
-                    <p class="video-pastor"><strong>Pastor:</strong> <?php echo esc_html($pastor_name); ?></p>
+                <?php if (!empty($pastor_name)): ?>
+                    <p class="video-pastor">
+                        <?php echo esc_html($pastor_name); ?> | <?php echo esc_html(date('F j/Y', strtotime($uploaded_date))); ?>
+                    </p>
                 <?php endif; ?>
-                <?php if ($uploaded_date): ?>
-                    <p class="video-uploaded-date"><strong>Uploaded on:</strong> <?php echo esc_html(date('F j, Y', strtotime($uploaded_date))); ?></p>
-                <?php endif; ?>
-                <span class="video-date"><?php echo get_the_date('M j, Y', $post_id); ?></span>
             </div>
         </div>
         <?php
