@@ -34,7 +34,10 @@ class WVT_Ajax_Handler
         );
 
         // Apply category filter - FIXED LOGIC
-        if (!empty($category) && $category !== 'all' && $category !== '*') {
+
+        $bypass_category = 'all';
+
+        if (!empty($category) && $category !== $bypass_category) {
             // Check if category exists first
             $term_exists = term_exists($category, 'video_category');
             if ($term_exists) {
@@ -49,11 +52,6 @@ class WVT_Ajax_Handler
             }
         }
 
-        // Debug logging
-        error_log("WVT Load More - Category: " . $category);
-        error_log("WVT Load More - Offset: " . $offset);
-        error_log("WVT Load More - Query Args: " . print_r($args, true));
-
         $videos = new WP_Query($args);
 
         // Initialize response
@@ -63,7 +61,7 @@ class WVT_Ajax_Handler
             'found_posts' => $videos->found_posts,
             'current_category' => $category,
             'total_loaded' => $offset + $posts_per_page,
-            'query_args' => $args // For debugging
+            'query_args' => $args 
         );
 
         if ($videos->have_posts()) {
@@ -76,7 +74,6 @@ class WVT_Ajax_Handler
 
             $response['html'] = ob_get_clean();
 
-            // Calculate if there are more posts
             $total_posts = $videos->found_posts;
             $response['has_more'] = ($offset + $posts_per_page) < $total_posts;
 

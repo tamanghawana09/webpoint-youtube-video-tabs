@@ -12,12 +12,14 @@ class WVT_Shortcode
         $atts = shortcode_atts(array(
             'posts_per_page' => 3,  // Show 3 videos initially
             'load_more_count' => 6, // Load 6 more when clicked
-            'default_category' => 'all'
+            'default_category' => 'all',
+            'all_text' => 'All'     // Customizable "All" button text
         ), $atts);
 
         $posts_per_page = intval($atts['posts_per_page']);
         $load_more_count = intval($atts['load_more_count']);
         $default_category = sanitize_text_field($atts['default_category']);
+        $all_text = sanitize_text_field($atts['all_text']); // Sanitize the all text
 
         // Base query for initial load
         $args = [
@@ -63,7 +65,7 @@ class WVT_Shortcode
                 <button class="tab-button <?php echo ($default_category === 'all') ? 'active' : ''; ?>" 
                         data-filter="*" 
                         data-category="all">
-                    All
+                    <?php echo esc_html($all_text); ?>
                 </button>
                 <?php
                 $terms = get_terms(array(
@@ -111,11 +113,10 @@ class WVT_Shortcode
                 ?>
             </div>
 
-            <!-- Load More Button -->
+      
             <div class="wvt-load-more-container">
                 <?php 
-                // Show load more button if there are more videos than initially displayed
-                // OR if we want to test with fewer videos than initial count
+               
                 $should_show_load_more = ($total_current_category > $posts_per_page);
                 
                 if ($should_show_load_more): ?>
@@ -141,6 +142,9 @@ class WVT_Shortcode
         <?php
         return ob_get_clean();
     }
+
+    
+
 
     private function render_video_item($post_id)
     {
