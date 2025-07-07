@@ -11,7 +11,7 @@ class WVT_CPT
         add_action('init', array($this, 'register_taxonomy'));
         add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
         add_action('save_post', array($this, 'save_meta_boxes'));
-       
+        add_action('admin_menu', array($this, 'add_help_submenu')); 
     }
 
     public function register_post_type()
@@ -90,6 +90,17 @@ class WVT_CPT
         );
     }
 
+    public function add_help_submenu(){
+        add_submenu_page(
+            'edit.php?post_type=youtube_videos',
+            'Shortcode Help',
+            'Help',
+            'manage_options',
+            'youtube_videos_help',
+            array($this,'render_help_page')
+        );
+    }
+
     public function youtube_video_meta_box($post)
     {
         wp_nonce_field('youtube_video_meta_box', 'youtube_video_meta_box_nonce');
@@ -162,4 +173,40 @@ class WVT_CPT
         }
     }
 
+
+    public function render_help_page()
+    {
+        echo '<div class="wrap">';
+        echo '<h1>YouTube Videos – How to Use</h1>';
+
+        echo '<p>This plugin automatically pulls all categories created under "YouTube Videos → Categories" and shows them as tabs in the frontend.</p>';
+
+        echo '<h2>Shortcode</h2>';
+        echo '<p>Use the shortcode below to show the video section:</p>';
+        echo '<code>[webpoint_video_tabs]</code>';
+
+        echo '<h2>Default Behavior</h2>';
+        echo '<ul>';
+        echo '<li>All categories are listed automatically as tabs.</li>';
+        echo '<li>3 videos are shown by default.</li>';
+        echo '<li>Clicking "Load More" loads 6 additional videos.</li>';
+        echo '</ul>';
+
+        echo '<h2>Optional Shortcode Attributes</h2>';
+        echo '<ul>';
+        echo '<li><code>all_text</code> – Change the label of the "All" tab (e.g. <code>all_text="All Sermons"</code>)</li>';
+        echo '</ul>';
+
+        echo '<h2>Example</h2>';
+        echo '<code>[webpoint_video_tabs all_text="All Videos"]</code>';
+
+        echo '<h2>How to Add Categories</h2>';
+        echo '<p>Go to <strong>YouTube Videos → Categories</strong> and create your video categories. These categories will automatically appear as filter tabs on the front end.</p>';
+
+        echo '</div>';
+    }
+
+
+
+   
 }

@@ -4,7 +4,8 @@
  * Plugin Name: Webpoint youtube video tabs
  * Description: Custom video tab section with YouTube integration.
  * Version: 1.0.0
- * Author: Hawana Tamang
+ * Author: Webpoint
+ * Author URL: http://webpoint.com/
  */
 
 if (!defined('ABSPATH')) {
@@ -25,7 +26,7 @@ class WebpointVideoTabs
         // Include other necessary classes early (except CPT already included above)
         require_once WVT_PLUGIN_DIR . 'includes/class-shortcode.php';
         require_once WVT_PLUGIN_DIR . 'includes/class-ajax-handler.php';
-        
+
 
         // Instantiate these classes here
         new WVT_Ajax_Handler();
